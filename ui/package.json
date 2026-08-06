@@ -1,0 +1,20 @@
+{
+  "name": "yola-android-ui",
+  "private": true,
+  "version": "0.1.0",
+  "description": "YOLA Android — Mobile UI adaptada de si-yola",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 5174",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@yola/client": "file:../../yola-client-ts",
+    "solid-js": "^1.9.14"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0",
+    "vite-plugin-solid": "^2.11.13"
+  }
+}
