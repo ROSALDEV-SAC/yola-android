@@ -33,11 +33,19 @@ import java.util.concurrent.atomic.AtomicBoolean
  * ║                                                                           ║
  * ╚═══════════════════════════════════════════════════════════════════════════╝
  */
+data class DiscoveredCore(val host: String, val port: Int)
+
 class DiscoveryClient(
     private val context: Context,
     private val onCoreDiscovered: (ip: String, port: Int) -> Unit,
     private val onStatusChange: (status: String) -> Unit
 ) {
+
+    /**
+     * Constructor simplificado para discovery sincrónico.
+     * Los callbacks quedan como no-ops porque solo se usa discover().
+     */
+    constructor(context: Context) : this(context, { _, _ -> }, { _ -> })
     companion object {
         private const val TAG = "YOLA_DISCOVERY"
         private const val UDP_PORT = 41335           // Puerto UDP ESTRICTO
@@ -51,6 +59,42 @@ class DiscoveryClient(
     
     // Handler para ejecutar callbacks en MainThread
     private val mainHandler = Handler(Looper.getMainLooper())
+
+    /**
+     * Discovery sincrónico: escucha UDP :41335 por `timeoutMs` milisegundos
+     * buscando un YOLA_CORE_BEACON. Bloquea el hilo actual.
+     * @return DiscoveredCore si encuentra un daemon, null si timeout.
+     */
+    fun discover(timeoutMs: Long = 3000): DiscoveredCore? {
+        try {
+            val sock = DatagramSocket(UDP_PORT)
+            sock.soTimeout = timeoutMs.toInt()
+            val buffer = ByteArray(1024)
+            val packet = DatagramPacket(buffer, buffer.size)
+
+            sock.receive(packet)
+            val message = String(packet.data, 0, packet.length)
+            val fallbackIp = packet.address.hostAddress ?: "localhost"
+
+            val json = JSONObject(message)
+            val type = json.optString("type", "")
+
+            if (type == "YOLA_CORE_BEACON" || type == "YOLA_BEACON") {
+                val ip = json.optString("ip", "").ifEmpty { fallbackIp }
+                val port = json.optInt("port", DEFAULT_WS_PORT)
+                sock.close()
+                Log.i(TAG, "discover(): encontrado $ip:$port")
+                return DiscoveredCore(ip, port)
+            }
+
+            sock.close()
+        } catch (e: java.net.SocketTimeoutException) {
+            Log.d(TAG, "discover(): timeout sin beacon (${timeoutMs}ms)")
+        } catch (e: Exception) {
+            Log.e(TAG, "discover(): error ${e.message}", e)
+        }
+        return null
+    }
 
     /**
      * Inicia la escucha UDP en segundo plano.

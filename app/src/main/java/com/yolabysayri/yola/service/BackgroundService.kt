@@ -44,13 +44,16 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import com.yolabysayri.yola.camera.RetinaServer
+import com.yolabysayri.yola.discovery.DiscoveredCore
+import com.yolabysayri.yola.discovery.DiscoveryClient
+import com.yolabysayri.yola.service.DaemonLauncher
 
 /**
  * +---------------------------------------------------------------------------+
- * ¦                    BACKGROUND SERVICE - ONE FACE PROTOCOL                  ¦
- * ¦                      COMPATIBLE ANDROID 5.0 (API 21)                      ¦
- * ¦---------------------------------------------------------------------------¦
- * ¦  FASE 5: Reports BODY_ACTIVITY to Core for global presence orchestration  ¦
+ * ï¿½                    BACKGROUND SERVICE - ONE FACE PROTOCOL                  ï¿½
+ * ï¿½                      COMPATIBLE ANDROID 5.0 (API 21)                      ï¿½
+ * ï¿½---------------------------------------------------------------------------ï¿½
+ * ï¿½  FASE 5: Reports BODY_ACTIVITY to Core for global presence orchestration  ï¿½
  * +---------------------------------------------------------------------------+
  */
 class BackgroundService : Service(), LifecycleOwner {
@@ -90,7 +93,7 @@ class BackgroundService : Service(), LifecycleOwner {
     
     // FASE 6: Heartbeat para mantener WebSocket vivo con pantalla apagada
     // Usamos un Thread dedicado en lugar de Handler porque el Handler depende del Looper
-    // que Android puede pausar cuando la pantalla está apagada
+    // que Android puede pausar cuando la pantalla estï¿½ apagada
     private val HEARTBEAT_INTERVAL_MS = 10_000L  // 10 segundos
     @Volatile private var heartbeatThreadRunning = false
     private var heartbeatThread: Thread? = null
@@ -138,7 +141,7 @@ class BackgroundService : Service(), LifecycleOwner {
     private var tts: TextToSpeech? = null
     private var ttsReady = false
     
-    // PIPER TTS — Motor de voz neural nativo (prioridad sobre Android TTS)
+    // PIPER TTS ï¿½ Motor de voz neural nativo (prioridad sobre Android TTS)
     private var piperTTS: PiperTTSEngine? = null
     
     private var audioRecord: AudioRecord? = null
@@ -150,7 +153,7 @@ class BackgroundService : Service(), LifecycleOwner {
     private var wakeLock: PowerManager.WakeLock? = null
     private var wifiLock: WifiManager.WifiLock? = null  // NUEVO: Mantiene WiFi activo
 
-    // FASE 4: Profile Manager para PTT y modos de operación
+    // FASE 4: Profile Manager para PTT y modos de operaciï¿½n
     private lateinit var profileManager: BodyProfileManager
 
     // Screen Off Receiver - FASE 5: Detect when user locks screen
@@ -235,6 +238,31 @@ class BackgroundService : Service(), LifecycleOwner {
         // CRITICAL: Always call startForeground when onStartCommand is invoked
         // This prevents ForegroundServiceDidNotStartInTimeException
         startForegroundNotification()
+
+        // 1. Discovery: buscar daemon en la red
+        var daemonHost = "localhost"
+        var daemonPort = 7779
+
+        val discoveryClient = DiscoveryClient(this)
+        val discovered = discoveryClient.discover() // escucha UDP :41335 por 3 segundos
+
+        if (discovered != null) {
+            // EncontrÃ³ un daemon en la red â†’ conectarse a Ã©l
+            daemonHost = discovered.host
+            daemonPort = discovered.port
+            Log.i(TAG, "Daemon encontrado en red: $daemonHost:$daemonPort")
+        } else {
+            // No encontrÃ³ daemon â†’ lanzar local
+            Log.i(TAG, "Sin daemon en red. Iniciando local...")
+            val started = DaemonLauncher.launch(this, daemonPort, 41335)
+            if (!started) {
+                Log.e(TAG, "No se pudo iniciar el daemon local")
+                stopSelf()
+                return START_NOT_STICKY
+            }
+            Log.i(TAG, "Daemon local iniciado en :$daemonPort")
+        }
+
         return START_STICKY
     }
 
@@ -328,14 +356,14 @@ class BackgroundService : Service(), LifecycleOwner {
                 "YOLA Body Service",
                 NotificationManager.IMPORTANCE_LOW
             )
-            channel.description = "Mantiene conexión con el Cerebro YOLA"
+            channel.description = "Mantiene conexiï¿½n con el Cerebro YOLA"
             channel.setShowBadge(false)
             
             val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             manager.createNotificationChannel(channel)
         }
 
-        // Crear Intent para abrir la app al tocar la notificación
+        // Crear Intent para abrir la app al tocar la notificaciï¿½n
         val pendingIntent = android.app.PendingIntent.getActivity(
             this, 
             0, 
@@ -345,7 +373,7 @@ class BackgroundService : Service(), LifecycleOwner {
 
         val notification = NotificationCompat.Builder(this, channelId)
             .setContentTitle("YOLA Body")
-            .setContentText("?? Buscando señal...")
+            .setContentText("?? Buscando seï¿½al...")
             .setSmallIcon(android.R.drawable.stat_sys_headset)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setOngoing(true)
@@ -356,10 +384,10 @@ class BackgroundService : Service(), LifecycleOwner {
         try {
             if (android.os.Build.VERSION.SDK_INT >= 29) {
                 // 128 (MICROPHONE) | 64 (CAMERA) = 192
-                // Usamos el entero directo para evitar problemas de importación
+                // Usamos el entero directo para evitar problemas de importaciï¿½n
                 startForeground(1, notification, 192) 
             } else {
-                // Android 8.0 a 9.0 (No soportan el parámetro de tipo)
+                // Android 8.0 a 9.0 (No soportan el parï¿½metro de tipo)
                 startForeground(1, notification)
             }
         } catch (e: Exception) {
@@ -393,7 +421,7 @@ class BackgroundService : Service(), LifecycleOwner {
             wakeLock?.acquire(60 * 60 * 1000L) // 1 hora
             Log.i(TAG, "?? [LOCK] WakeLock ADQUIRIDO (CPU activa)")
             
-            // 2. WiFi WakeLock - CRÍTICO para mantener WebSocket vivo
+            // 2. WiFi WakeLock - CRï¿½TICO para mantener WebSocket vivo
             val wm = applicationContext.getSystemService(Context.WIFI_SERVICE) as? WifiManager
             if (wm != null) {
                 @Suppress("DEPRECATION")
@@ -451,12 +479,12 @@ class BackgroundService : Service(), LifecycleOwner {
                 piperTTS = PiperTTSEngine(this)
                 val success = piperTTS?.initialize() ?: false
                 if (success) {
-                    Log.i(TAG, "??? ? Piper TTS neural inicializado — voz de alta calidad activa")
+                    Log.i(TAG, "??? ? Piper TTS neural inicializado ï¿½ voz de alta calidad activa")
                     mainHandler.post {
                         speak("Sistema Yola activo. Voz neural activada. Buscando red.")
                     }
                 } else {
-                    Log.w(TAG, "?? Piper TTS falló, usando Android TTS como fallback")
+                    Log.w(TAG, "?? Piper TTS fallï¿½, usando Android TTS como fallback")
                     piperTTS = null
                     mainHandler.post {
                         speak("Sistema Yola activo. Buscando red.")
@@ -478,7 +506,7 @@ class BackgroundService : Service(), LifecycleOwner {
 
     /**
      * Habla usando Piper TTS (neural) o Android TTS (fallback).
-     * Piper tiene prioridad si está inicializado.
+     * Piper tiene prioridad si estï¿½ inicializado.
      */
     private fun speak(text: String) {
         try {
@@ -489,7 +517,7 @@ class BackgroundService : Service(), LifecycleOwner {
                     piper.speak(text)
                     return
                 } else {
-                    Log.d(TAG, "? [PIPER] Motor existe pero aún no está listo. Usando fallback.")
+                    Log.d(TAG, "? [PIPER] Motor existe pero aï¿½n no estï¿½ listo. Usando fallback.")
                 }
             } else {
                 Log.d(TAG, "?? [PIPER] Motor no instanciado. Usando fallback.")
@@ -511,7 +539,7 @@ class BackgroundService : Service(), LifecycleOwner {
     }
 
     // ========================================================================
-    // LÓGICA PRINCIPAL
+    // Lï¿½GICA PRINCIPAL
     // ========================================================================
 
     private fun enterGhostMode() {
@@ -522,7 +550,7 @@ class BackgroundService : Service(), LifecycleOwner {
         stopRecording()
 
         broadcastUIUpdate("?? MODO GHOST", "Escaneando...", "GHOST", false)
-        updateNotification("?? Buscando señal...")
+        updateNotification("?? Buscando seï¿½al...")
 
         startDiscovery()
 
@@ -588,7 +616,7 @@ class BackgroundService : Service(), LifecycleOwner {
                     currentState = State.CONNECTED
                     connectedCoreIp = ip  // ? GUARDAR IP para uso posterior
                     broadcastUIUpdate("?? CONECTADO", "Enlace activo", "CONNECTED", true, ip)
-                    updateNotification("?? Conectado al Núcleo")
+                    updateNotification("?? Conectado al Nï¿½cleo")
                     speak("Enlace neuronal establecido.")
                     discoveryClient?.stop()
                     
@@ -610,7 +638,7 @@ class BackgroundService : Service(), LifecycleOwner {
                     Log.i(TAG, "?? Sent initial BODY_ACTIVITY: foreground=true")
                     isForeground = true
                     
-                    // FASE 6: Iniciar heartbeat periódico para mantener conexión viva
+                    // FASE 6: Iniciar heartbeat periï¿½dico para mantener conexiï¿½n viva
                     Log.i(TAG, "?? Iniciando heartbeat cada ${HEARTBEAT_INTERVAL_MS/1000}s")
                     startHeartbeatThread()
                     
@@ -619,12 +647,12 @@ class BackgroundService : Service(), LifecycleOwner {
                     // SENSOR_ONLY: Auto-start continuous mic
                     // PASSIVE_DISPLAY: No mic at all
                     if (profileManager.isContinuousMicMode()) {
-                        Log.i(TAG, "?? SENSOR_ONLY: Iniciando micrófono continuo")
+                        Log.i(TAG, "?? SENSOR_ONLY: Iniciando micrï¿½fono continuo")
                         startRecording()
                     } else if (profileManager.isPushToTalkMode()) {
-                        Log.i(TAG, "?? FULL_INTERACTIVE: Modo PTT activo (esperando botón)")
+                        Log.i(TAG, "?? FULL_INTERACTIVE: Modo PTT activo (esperando botï¿½n)")
                     } else {
-                        Log.i(TAG, "?? PASSIVE_DISPLAY: Micrófono desactivado")
+                        Log.i(TAG, "?? PASSIVE_DISPLAY: Micrï¿½fono desactivado")
                     }
                     startTelemetry()
                 }
@@ -645,7 +673,7 @@ class BackgroundService : Service(), LifecycleOwner {
                             mainHandler.post { speak(txt) }
                         }
                         "UPDATE_UI" -> {
-                            // FASE 2: ONE FACE Protocol - Core controla dónde se muestra la cara
+                            // FASE 2: ONE FACE Protocol - Core controla dï¿½nde se muestra la cara
                             val showFace = json.optBoolean("show_face", true)
                             mainHandler.post {
                                 Log.i(TAG, "?? Recibido UPDATE_UI: show_face=$showFace, coreIp=$connectedCoreIp")
@@ -653,9 +681,9 @@ class BackgroundService : Service(), LifecycleOwner {
                                 val uiIntent = Intent(ACTION_UI_UPDATE)
                                 uiIntent.setPackage(packageName)
                                 uiIntent.putExtra(EXTRA_SHOW_FACE, showFace)
-                                // ? CRÍTICO: Enviar CONNECTED=true para que effectiveShowFace funcione
+                                // ? CRï¿½TICO: Enviar CONNECTED=true para que effectiveShowFace funcione
                                 uiIntent.putExtra(EXTRA_CONNECTED, true)
-                                // ? CRÍTICO: También enviar core_ip para que WebView funcione!
+                                // ? CRï¿½TICO: Tambiï¿½n enviar core_ip para que WebView funcione!
                                 if (connectedCoreIp != null) {
                                     uiIntent.putExtra("core_ip", connectedCoreIp)
                                 }
@@ -745,7 +773,7 @@ class BackgroundService : Service(), LifecycleOwner {
             connectedCoreIp = null  // ? Limpiar IP al desconectar
             webSocket = null
             stopRecording()
-            speak("Enlace perdido. Buscando señal.")
+            speak("Enlace perdido. Buscando seï¿½al.")
             mainHandler.postDelayed({ enterGhostMode() }, 2000)
         }
     }
@@ -790,7 +818,7 @@ class BackgroundService : Service(), LifecycleOwner {
 
 
     /**
-     * Envía comandos de entrada remota (Mouse/Teclado) al PC.
+     * Envï¿½a comandos de entrada remota (Mouse/Teclado) al PC.
      */
     fun sendRemoteInput(payload: JSONObject) {
         if (isConnected && webSocket != null) {
@@ -806,8 +834,8 @@ class BackgroundService : Service(), LifecycleOwner {
     }
 
     /**
-     * Inicia la grabación PTT.
-     * Llamado por MainActivity cuando el usuario presiona el botón.
+     * Inicia la grabaciï¿½n PTT.
+     * Llamado por MainActivity cuando el usuario presiona el botï¿½n.
      */
     fun startPTTRecording() {
         if (!profileManager.isPushToTalkMode()) {
@@ -815,10 +843,10 @@ class BackgroundService : Service(), LifecycleOwner {
             return
         }
         
-        Log.i(TAG, "?? PTT: Iniciando grabación")
+        Log.i(TAG, "?? PTT: Iniciando grabaciï¿½n")
         startRecording()
         
-        // Notificar al Core que el usuario está hablando
+        // Notificar al Core que el usuario estï¿½ hablando
         try {
             val json = JSONObject().apply {
                 put("type", "PTT_START")
@@ -835,19 +863,19 @@ class BackgroundService : Service(), LifecycleOwner {
     }
 
     /**
-     * Detiene la grabación PTT.
-     * Llamado por MainActivity cuando el usuario suelta el botón.
+     * Detiene la grabaciï¿½n PTT.
+     * Llamado por MainActivity cuando el usuario suelta el botï¿½n.
      */
     fun stopPTTRecording() {
         if (!profileManager.isPushToTalkMode()) return
         
-        Log.i(TAG, "?? PTT: Deteniendo grabación")
+        Log.i(TAG, "?? PTT: Deteniendo grabaciï¿½n")
         stopRecording()
         
-        // ?? CRÍTICO: Enviar señal de fin de flujo para que el PC procese YA
+        // ?? CRï¿½TICO: Enviar seï¿½al de fin de flujo para que el PC procese YA
         try {
             val json = JSONObject().apply {
-                put("type", "AUDIO_END") // Señal explícita de fin de turno
+                put("type", "AUDIO_END") // Seï¿½al explï¿½cita de fin de turno
                 put("deviceId", deviceId)
                 put("timestamp", System.currentTimeMillis())
             }
@@ -862,7 +890,7 @@ class BackgroundService : Service(), LifecycleOwner {
     }
 
     /**
-     * Verifica si el modo PTT está activo
+     * Verifica si el modo PTT estï¿½ activo
      */
     fun isPTTMode(): Boolean = profileManager.isPushToTalkMode()
 
@@ -882,7 +910,7 @@ class BackgroundService : Service(), LifecycleOwner {
     }
 
     // ========================================================================
-    // TELEMETRÍA & UI
+    // TELEMETRï¿½A & UI
     // ========================================================================
 
     private fun startTelemetry() {
@@ -925,7 +953,7 @@ class BackgroundService : Service(), LifecycleOwner {
 
     private fun broadcastUIUpdate(status: String?, action: String?, state: String?, connected: Boolean?, coreIp: String? = null) {
         val intent = Intent(ACTION_UI_UPDATE)
-        intent.setPackage(packageName) // CRÍTICO: Asegura entrega interna en Android 14
+        intent.setPackage(packageName) // CRï¿½TICO: Asegura entrega interna en Android 14
         if (status != null) intent.putExtra(EXTRA_STATUS, status)
         if (action != null) intent.putExtra(EXTRA_ACTION, action)
         if (state != null) intent.putExtra(EXTRA_STATE, state)
@@ -937,7 +965,7 @@ class BackgroundService : Service(), LifecycleOwner {
     }
 
     /**
-     * Envía un comando genérico al PC.
+     * Envï¿½a un comando genï¿½rico al PC.
      */
     fun sendCommand(type: String, payload: JSONObject = JSONObject()) {
         if (!isConnected || webSocket == null) return
