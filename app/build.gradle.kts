@@ -73,7 +73,8 @@ dependencies {
     implementation("org.json:json:20231013")
 
     // Sherpa-ONNX (TTS)
-    implementation("com.k2fsa.sherpa:onnx:1.10.38")
+    // TTS: usar Android TextToSpeech nativo (sherpa-onnx removido — version no disponible en Maven)
+    // implementation("com.k2fsa.sherpa:onnx:1.10.38")
 
     // Debug
     debugImplementation("androidx.compose.ui:ui-tooling")

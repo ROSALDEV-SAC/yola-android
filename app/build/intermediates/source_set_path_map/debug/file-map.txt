@@ -1,0 +1,47 @@
+com.yolabysayri.yola.app-startup-runtime-1.1.1-0 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\1cc753b2743b1336b5412904b802af31\workspace\transformed\startup-runtime-1.1.1\res
+com.yolabysayri.yola.app-animation-release-1 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\223dd9a660945fac3061588cedbc5327\workspace\transformed\animation-release\res
+com.yolabysayri.yola.app-ui-geometry-release-2 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\2de144a65925aa8d9cf63bb2700e4267\workspace\transformed\ui-geometry-release\res
+com.yolabysayri.yola.app-lifecycle-viewmodel-ktx-2.7.0-3 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\3a4ebe30c2bec56f34c69278b52cc825\workspace\transformed\lifecycle-viewmodel-ktx-2.7.0\res
+com.yolabysayri.yola.app-savedstate-ktx-1.2.1-4 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\40a129a65417f2db67184b66a2c5d8aa\workspace\transformed\savedstate-ktx-1.2.1\res
+com.yolabysayri.yola.app-core-1.12.0-5 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\461c260dad2b37d78d1651aec257e483\workspace\transformed\core-1.12.0\res
+com.yolabysayri.yola.app-runtime-saveable-release-6 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\478fea5b639192a0129473a8d27cf815\workspace\transformed\runtime-saveable-release\res
+com.yolabysayri.yola.app-activity-compose-1.8.2-7 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\4bb599ea9aa5c33bb6ab8a70f0e6b547\workspace\transformed\activity-compose-1.8.2\res
+com.yolabysayri.yola.app-material-ripple-release-8 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\4c91499ecd5d67d8e582a538d27ba5f6\workspace\transformed\material-ripple-release\res
+com.yolabysayri.yola.app-animation-core-release-9 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\54462ddcfb014f7be5fe615bfd77aeb7\workspace\transformed\animation-core-release\res
+com.yolabysayri.yola.app-foundation-layout-release-10 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\5637387f7d56b8a2d0ae52e6ff1ad600\workspace\transformed\foundation-layout-release\res
+com.yolabysayri.yola.app-ui-tooling-preview-release-11 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\58f13d831420f16e23e7a1d95ef2d2b4\workspace\transformed\ui-tooling-preview-release\res
+com.yolabysayri.yola.app-lifecycle-viewmodel-2.7.0-12 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\5f80dac83ab8860478859fc9b07f1a31\workspace\transformed\lifecycle-viewmodel-2.7.0\res
+com.yolabysayri.yola.app-ui-text-release-13 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\6f34c31be3ae0d23f8f185ee4cd7b703\workspace\transformed\ui-text-release\res
+com.yolabysayri.yola.app-annotation-experimental-1.4.0-14 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\74d12d439cfd43d44c9a4a0dfa7e49fc\workspace\transformed\annotation-experimental-1.4.0\res
+com.yolabysayri.yola.app-foundation-release-15 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\772bae56c3a2a7a6a6a5a15343d28833\workspace\transformed\foundation-release\res
+com.yolabysayri.yola.app-profileinstaller-1.3.0-16 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\82522e57893396d01741468c6b384392\workspace\transformed\profileinstaller-1.3.0\res
+com.yolabysayri.yola.app-activity-1.8.2-17 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\8310772950287c5341625cbfb9a619ad\workspace\transformed\activity-1.8.2\res
+com.yolabysayri.yola.app-lifecycle-viewmodel-savedstate-2.7.0-18 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\89700d282852b9e430ea4c09ad78c9e0\workspace\transformed\lifecycle-viewmodel-savedstate-2.7.0\res
+com.yolabysayri.yola.app-material3-release-19 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\89cb3a9b682e0b1784d9ad4f0ee73949\workspace\transformed\material3-release\res
+com.yolabysayri.yola.app-material-release-20 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\8b9f6175264fbeae22d75ddabe363aa2\workspace\transformed\material-release\res
+com.yolabysayri.yola.app-ui-unit-release-21 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\9adb436a4bc3888d3a8fa653a06c60df\workspace\transformed\ui-unit-release\res
+com.yolabysayri.yola.app-runtime-release-22 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\9fac7a8305e5d9eb5bfbaa565e1599d1\workspace\transformed\runtime-release\res
+com.yolabysayri.yola.app-emoji2-1.3.0-23 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\ac96269f8774e2729d8cd56a24db0c99\workspace\transformed\emoji2-1.3.0\res
+com.yolabysayri.yola.app-activity-ktx-1.8.2-24 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\b674039f9f4fe8a42117572f8eaab997\workspace\transformed\activity-ktx-1.8.2\res
+com.yolabysayri.yola.app-core-runtime-2.2.0-25 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\b9b32988d20301676add7c747326e76f\workspace\transformed\core-runtime-2.2.0\res
+com.yolabysayri.yola.app-lifecycle-process-2.7.0-26 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\c4e02209e7e8438e27514b51351fd375\workspace\transformed\lifecycle-process-2.7.0\res
+com.yolabysayri.yola.app-customview-poolingcontainer-1.0.0-27 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\c6f3758b1d9f9ba10bae0904cbd9f3dc\workspace\transformed\customview-poolingcontainer-1.0.0\res
+com.yolabysayri.yola.app-lifecycle-runtime-ktx-2.7.0-28 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\c72b1d4f6c933a578f49ee482b1bbf7a\workspace\transformed\lifecycle-runtime-ktx-2.7.0\res
+com.yolabysayri.yola.app-ui-tooling-data-release-29 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\d1dcad4d4422f724f51da756c14378f7\workspace\transformed\ui-tooling-data-release\res
+com.yolabysayri.yola.app-ui-util-release-30 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\d362b16a13ef2b1775524b84ea7cba8c\workspace\transformed\ui-util-release\res
+com.yolabysayri.yola.app-material-icons-core-release-31 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\d8eeaeb504b691d5ba97c62cf703b7e3\workspace\transformed\material-icons-core-release\res
+com.yolabysayri.yola.app-ui-release-32 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\e1df0b2e443a87001db458ecbec96113\workspace\transformed\ui-release\res
+com.yolabysayri.yola.app-ui-tooling-release-33 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\e53c05af370eaa2738696e527fb5a1a2\workspace\transformed\ui-tooling-release\res
+com.yolabysayri.yola.app-savedstate-1.2.1-34 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\e7fb821b2e1dbb894a50428410787ba7\workspace\transformed\savedstate-1.2.1\res
+com.yolabysayri.yola.app-core-ktx-1.12.0-35 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\e87c2e6694814d8c35109ec3d6e2eb3b\workspace\transformed\core-ktx-1.12.0\res
+com.yolabysayri.yola.app-lifecycle-runtime-2.7.0-36 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\ee93333df68791591084338b401a0510\workspace\transformed\lifecycle-runtime-2.7.0\res
+com.yolabysayri.yola.app-ui-graphics-release-37 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\f0cfd0b64d4a72abded6aad0e5c97eba\workspace\transformed\ui-graphics-release\res
+com.yolabysayri.yola.app-lifecycle-livedata-core-2.7.0-38 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\f5ebf95c97b262d8d0cccbe40468e89e\workspace\transformed\lifecycle-livedata-core-2.7.0\res
+com.yolabysayri.yola.app-ui-test-manifest-1.6.1-39 C:\Users\Sayri\.gradle\caches\9.3.0\transforms\f808fb3aaf8e6f9891a8833449b77c13\workspace\transformed\ui-test-manifest-1.6.1\res
+com.yolabysayri.yola.app-pngs-40 D:\Workspace Miaw\CUERPOS_YOLA\yola-android\app\build\generated\res\pngs\debug
+com.yolabysayri.yola.app-resValues-41 D:\Workspace Miaw\CUERPOS_YOLA\yola-android\app\build\generated\res\resValues\debug
+com.yolabysayri.yola.app-packageDebugResources-42 D:\Workspace Miaw\CUERPOS_YOLA\yola-android\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.yolabysayri.yola.app-packageDebugResources-43 D:\Workspace Miaw\CUERPOS_YOLA\yola-android\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.yolabysayri.yola.app-merged_res-44 D:\Workspace Miaw\CUERPOS_YOLA\yola-android\app\build\intermediates\merged_res\debug
+com.yolabysayri.yola.app-debug-45 D:\Workspace Miaw\CUERPOS_YOLA\yola-android\app\src\debug\res
+com.yolabysayri.yola.app-main-46 D:\Workspace Miaw\CUERPOS_YOLA\yola-android\app\src\main\res
